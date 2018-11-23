@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fileUrl = './test.1.json'
 
 // 写入文件
 function writeJSONFile(url) {
@@ -9,6 +10,13 @@ function writeJSONFile(url) {
     let json = JSON.parse(data);
     let townList = json['features'];
     loopSplitList(townList);
+    let jsonStr = JSON.stringify(json);
+    fs.writeFile(fileUrl, jsonStr, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log('文件创建成功，地址：' + file);
+    });
     console.log('文件已保存！');
   });
 }
@@ -36,4 +44,4 @@ function loopSplitList(arr) {
   });
 }
 
-writeJSONFile('./guangshan.json');
+writeJSONFile(fileUrl);
