@@ -17,7 +17,7 @@ function writeJSONFile() {
       console.log(result);
     });
     edit.catch((reason) => {
-      console.log(reason);
+      console.log(`错误：${reason}`);
     });
   });
 }
