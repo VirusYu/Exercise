@@ -15,7 +15,7 @@ function writeJSONFile(url) {
       if (err) {
         return console.log(err);
       }
-      console.log('文件创建成功，地址：' + file);
+      console.log('文件修改成功，地址：' + file);
     });
     console.log('文件已保存！');
   });

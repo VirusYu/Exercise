@@ -1,2 +1,2 @@
-# Exercise
-个人练手DEMO
+# 个人的一些小代码
+`node-demo`下为node写的一些工作用的脚本，将来会不断完善。
