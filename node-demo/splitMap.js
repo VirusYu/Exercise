@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const fileUrl = './test.1.json'
+
+const fileUrl = './卢龙.json'
 const file = path.join(__dirname, fileUrl);
 let jsonStr = null;
 
@@ -31,6 +32,7 @@ function editMainFile(resolve, reject) {
     resolve('文件已保存');
   });
 }
+
 // 拆分数据
 function loopSplitList(arr) {
   fs.mkdir('./town', {
@@ -39,6 +41,7 @@ function loopSplitList(arr) {
     if (err) throw err;
   });
   arr.forEach(item => {
+    let newFile = item['properties']['admin_id'] || item['properties']['name'];
     item['properties']['cp'] = eval(item['properties']['cp']);
     let fileJSON = {
       "type": "FeatureCollection",
@@ -48,7 +51,7 @@ function loopSplitList(arr) {
       "UTF8Encoding": true
     }
     fileJSON = JSON.stringify(fileJSON);
-    fs.writeFile(`./town/${item['properties']['name']}.json`, fileJSON, (err) => {
+    fs.writeFile(`./town/${newFile}.json`, fileJSON, (err) => {
       if (err) throw err;
     });
   });
