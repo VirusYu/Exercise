@@ -42,6 +42,9 @@ function loopSplitList(arr) {
   });
   arr.forEach(item => {
     let newFile = item['properties']['admin_id'] || item['properties']['name'];
+    if (item['properties']['admin_id']) {
+      delete item['properties']['admin_id'];
+    }
     item['properties']['cp'] = eval(item['properties']['cp']);
     let fileJSON = {
       "type": "FeatureCollection",
