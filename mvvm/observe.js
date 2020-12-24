@@ -16,6 +16,8 @@ function observe(data) {
 }
 
 function defineReactive(data, key, val) {
+  const dep = new Dep();
+  // 监听子属性
   observe(val);
   Object.defineProperty(data, key, {
     enumerable: true,
@@ -24,8 +26,25 @@ function defineReactive(data, key, val) {
       return val;
     },
     set: function (newVal) {
+      if (val === newVal) return false;
       console.log(`get new value: ${newVal}`);
       val = newVal;
+      dep.notify();
     },
   });
 }
+
+function Dep() {
+  this.subs = [];
+}
+
+Dep.prototype = {
+  addSub: function (sub) {
+    this.subs.push(sub);
+  },
+  notify: function () {
+    this.subs.forEach((sub) => {
+      sub.update();
+    });
+  },
+};
