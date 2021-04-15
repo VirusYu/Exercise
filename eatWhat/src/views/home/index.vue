@@ -42,16 +42,31 @@ export default defineComponent({
     const btnText = ref('点我')
     const currentFood = ref('')
     const foodList = reactive(commonFoodList)
-    const timer = ref(null)
+    const timer = ref(0)
 
-    function randomFood() {
-      return foodList[0] as string
+    function randomFood(): void {
+      const length = foodList.length
+      currentFood.value = foodList[Math.floor(Math.random() * length)] as string
+    }
+
+    function startTimer(): void {
+      timer.value = setInterval(() => {
+        randomFood()
+      }, 50)
     }
 
     function clickHandler(): void {
-      first.value = true
-      btnText.value = '停'
-      currentFood.value = randomFood()
+      if (!first.value) {
+        first.value = true
+      }
+      playStatus.value = !playStatus.value
+      if (playStatus.value) {
+        startTimer()
+        btnText.value = '停'
+      } else {
+        clearInterval(timer.value)
+        btnText.value = '换一种'
+      }
     }
 
     return {
