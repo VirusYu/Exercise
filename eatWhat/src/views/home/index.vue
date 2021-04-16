@@ -53,8 +53,6 @@ export default defineComponent({
 
     function getFoods(foods: Array<String>) {
       foodList = foods
-      console.log(foodList);
-      
     }
 
     function randomFood(): void {
