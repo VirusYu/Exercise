@@ -9,11 +9,15 @@
         <div class="suggest-btn" @click="clickHandler">{{ btnText }}</div>
       </div>
     </div>
+
+    <base-add-food @getFoods="getFoods" />
   </div>
 </template>
 
 <script lang="ts" >
 import { defineComponent, ref, reactive, readonly } from 'vue'
+
+import BaseAddFood from '../../components/base-add-food.vue'
 
 const commonFoodList: Array<String> = [
   '椒麻鸡拌面',
@@ -36,13 +40,22 @@ const commonFoodList: Array<String> = [
 
 export default defineComponent({
   name: 'home',
+  components: {
+    BaseAddFood
+  },
   setup(props) {
     const first = ref(false)
     const playStatus = ref(false)
     const btnText = ref('点我')
     const currentFood = ref('')
-    const foodList = reactive(commonFoodList)
+    let foodList: Array<String> = []
     const timer = ref(0)
+
+    function getFoods(foods: Array<String>) {
+      foodList = foods
+      console.log(foodList);
+      
+    }
 
     function randomFood(): void {
       const length = foodList.length
@@ -74,6 +87,7 @@ export default defineComponent({
       first,
       currentFood,
       playStatus,
+      getFoods,
       clickHandler
     }
   }
@@ -83,7 +97,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .home {
   height: 100vh;
-  padding: 40px;
+  padding: 20px;
   background: rgb(240, 193, 124);
 }
 .suggest-box {
@@ -91,26 +105,26 @@ export default defineComponent({
   top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
+  width: 350px;
   text-align: center;
 }
 
 .suggest-btn-box {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .suggest-title {
-  font-size: 32px;
-  line-height: 48px;
+  font-size: 16px;
+  line-height: 24px;
 }
 .suggest-btn {
   display: inline-block;
-  width: 160px;
-  height: 60px;
+  width: 80px;
+  height: 30px;
   text-align: center;
-  line-height: 60px;
+  line-height: 30px;
   color: #fff;
-  border-radius: 10px;
-  font-size: 28px;
+  border-radius: 5px;
+  font-size: 14px;
   background: linear-gradient(to right, #ee780a, #ff6034);
   &:active {
     background: linear-gradient(to right, #ec7404, #f85021);
